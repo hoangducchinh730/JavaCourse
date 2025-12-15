@@ -17,8 +17,6 @@ public class Main {
 //        cfg.configure();
 //        SessionFactory sf = cfg.buildSessionFactory();
 
-        Student s2 = null;
-
         SessionFactory sf = new Configuration()
                 .addAnnotatedClass(com.chinh.Student.class)
                 .configure()
@@ -26,14 +24,14 @@ public class Main {
 
         Session session = sf.openSession();
 
-        Transaction  transaction = session.beginTransaction();
+        Student s2 = session.find(Student.class, 8);
 
-        session.persist(s1);
-
-        transaction.commit();
         session.close();
         sf.close();
 
-        System.out.println(s1);
+        if (s2 != null)
+            System.out.println(s2.getsName());
+        else
+            System.err.println("Không tồn tại trong database.");
     }
 }
