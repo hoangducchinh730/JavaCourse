@@ -44,7 +44,10 @@ public class BookService {
             }
         }
 
-        Book newBook = new Book(id, title, author, price);
+        Book newBook = new Book();
+        newBook.setTitle(title);
+        newBook.setAuthor(author);
+        newBook.setBasePrice(price);
         bookRepository.save(newBook);
 
         System.out.println(">> Đã thêm sách thành công: " + title);
