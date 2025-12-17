@@ -13,6 +13,7 @@ import java.util.List;
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY) // 2. Chiến lược Cache
 public class Book {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Để DB tự tăng ID
     private int id;
 
     @Column(name = "book_title")
