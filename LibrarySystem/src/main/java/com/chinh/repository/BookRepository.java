@@ -10,15 +10,9 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 public class BookRepository {
-    private final HibernateUtil hibernateUtil;
-    public BookRepository(HibernateUtil hibernateUtil)
-    {
-        this.hibernateUtil = hibernateUtil;
-    }
-
     public void save(Book book)
     {
-        Session session = hibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
         session.merge(book);
@@ -29,7 +23,7 @@ public class BookRepository {
 
     public Book findById(int bookId)
     {
-        Session session = hibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
         Book book = session.find(Book.class, bookId);
 
@@ -41,7 +35,7 @@ public class BookRepository {
     public List<Book> findAll()
     {
         String hql = "FROM Book";
-        Session session = hibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
         Query query = session.createQuery(hql, Book.class);
         List<Book> bookList = query.getResultList();
@@ -52,7 +46,7 @@ public class BookRepository {
 
     public void delete(int bookId)
     {
-        Session session = hibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
         Book bookToDelete = session.find(Book.class, bookId);
