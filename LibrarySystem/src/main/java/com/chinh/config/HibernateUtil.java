@@ -13,19 +13,27 @@ public class HibernateUtil {
     {
         if (sessionFactory == null)
         {
-            sessionFactory = new Configuration()
-                .addAnnotatedClass(User.class)
-                .addAnnotatedClass(Book.class)
-                .addAnnotatedClass(LibraryCard.class)
-                .configure() // Read the hibernate.cfg.xml
-                .buildSessionFactory();
-
+            try
+            {
+                sessionFactory = new Configuration()
+                        .addAnnotatedClass(User.class)
+                        .addAnnotatedClass(Book.class)
+                        .addAnnotatedClass(LibraryCard.class)
+                        .configure() // Read the hibernate.cfg.xml
+                        .buildSessionFactory();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                System.err.println("Lỗi khởi tạo SessionFactory");
+            }
         }
         return sessionFactory;
     }
 
     public void shutdown()
     {
-        sessionFactory.close();
+        if(sessionFactory != null)
+            sessionFactory.close();
     }
 }
