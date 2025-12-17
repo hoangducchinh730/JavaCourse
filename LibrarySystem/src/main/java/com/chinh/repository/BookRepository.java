@@ -16,7 +16,7 @@ public class BookRepository {
         try(Session session = HibernateUtil.getSessionFactory().openSession())
         {
             Transaction tx = session.beginTransaction();
-            session.merge(book);
+            session.persist(book);
             tx.commit();
         }
     }
