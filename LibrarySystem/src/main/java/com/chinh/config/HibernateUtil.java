@@ -17,6 +17,7 @@ public class HibernateUtil {
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Book.class)
                 .addAnnotatedClass(LibraryCard.class)
+                .configure() // Read the hibernate.cfg.xml
                 .buildSessionFactory();
 
         }
