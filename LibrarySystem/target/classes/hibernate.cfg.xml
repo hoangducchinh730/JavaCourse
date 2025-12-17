@@ -9,7 +9,7 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">password</property>
 
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
 
         <!-- Bỏ dòng này đi vì nó Hibernate 6 trở lên có cơ chế tự động nhận diện.
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
