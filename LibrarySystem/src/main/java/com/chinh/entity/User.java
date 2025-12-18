@@ -1,14 +1,16 @@
-package com.chinh;
+package com.chinh.entity;
 
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tbl_user")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
@@ -28,9 +30,8 @@ public class User {
     private List<Book> borrowedBooks = new ArrayList<>();
 
     public User() {};
-    public User(int id, String name, Address address)
+    public User(String name, Address address)
     {
-        this.id = id;
         this.name = name;
         this.address = address;
     }
@@ -79,5 +80,18 @@ public class User {
 
     public void setBorrowedBooks(List<Book> borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
