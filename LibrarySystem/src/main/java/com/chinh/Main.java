@@ -1,14 +1,11 @@
 package com.chinh;
 
+import com.chinh.entity.User;
 import com.chinh.repository.BookRepository;
+import com.chinh.repository.UserRepository;
 import com.chinh.service.BookService;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
+import com.chinh.service.UserService;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -16,27 +13,58 @@ public class Main {
     {
         Scanner scanner = new Scanner(System.in);
         BookRepository bookRepository = new BookRepository();
+        UserRepository userRepository = new UserRepository();
         BookService bookService = new BookService(scanner, bookRepository);
+        UserService userService = new UserService(scanner, userRepository, bookRepository);
 
         boolean isRunning = true;
+        User currentUser = null;
         while(isRunning)
         {
-            printMenu();
-            String choice = scanner.nextLine();
-            switch (choice)
+            while(currentUser == null)
             {
-                case "1":
-                    bookService.createBook();
-                    break;
-                case "2":
-                    bookService.displayAllBooks();
-                    break;
-                case "3":
-                    System.out.println("Đang thoát chương trình...");
-                    isRunning = false;
-                    break;
-                default:
-                    System.out.println(">> Lựa chọn không hợp lệ. Vui lòng chọn lại!");
+                printMenu();
+                String choice = scanner.nextLine();
+                switch (choice) {
+                    case "1":
+                        currentUser = userService.login();
+                        break;
+                    case "2":
+                        userService.registerUser();
+                        break;
+                    case "3":
+                        bookService.createBook();
+                        break;
+                    case "4":
+                        System.out.println("Đang thoát chương trình...");
+                        isRunning = false;
+                        break;
+                    default:
+                        System.out.println(">> Lựa chọn không hợp lệ. Vui lòng chọn lại!");
+                }
+            }
+            while(currentUser != null)
+            {
+                System.out.println("User: " + currentUser.getName());
+                printMenuUser();
+                String choice = scanner.nextLine();
+                switch (choice) {
+                    case "1":
+                        bookService.displayAllBooks();
+                        break;
+                    case "2":
+                        userService.borrowBook(currentUser);
+                        break;
+                    case "3":
+                        userService.returnBook(currentUser);
+                        break;
+                    case "4":
+                        userService.showMyBooks(currentUser);
+                        currentUser = null;
+                        break;
+                    default:
+                        System.out.println(">> Lựa chọn không hợp lệ. Vui lòng chọn lại!");
+                }
             }
             if (isRunning) {
                 System.out.println("\n(Ấn Enter để tiếp tục...)");
@@ -45,14 +73,24 @@ public class Main {
         }
     }
 
-    private static void printMenu() {
+    private static void printMenu()
+    {
         System.out.println("\n=================================");
         System.out.println("   HỆ THỐNG QUẢN LÝ THƯ VIỆN");
         System.out.println("=================================");
-        System.out.println("1. Thêm sách mới");
-        System.out.println("2. Xem danh sách sách");
-        System.out.println("3. Thoát");
-        System.out.print(">> Mời chọn chức năng (1-3): ");
+        System.out.println("1. Đăng nhập");
+        System.out.println("2. Đăng ký");
+        System.out.println("3. Thêm sách");
+        System.out.println("4. Thoát");
+        System.out.print(">> Mời chọn (1-3): ");
+    }
+
+    private static void printMenuUser() {
+        System.out.println("1. Xem danh sách sách");
+        System.out.println("2. Mượn sách");
+        System.out.println("3. Trả sách");
+        System.out.println("4. Đăng xuất");
+        System.out.print(">> Mời chọn chức năng (1-4): ");
     }
 //    private static SessionFactory sf;
 //    public static void main(String[] args)
