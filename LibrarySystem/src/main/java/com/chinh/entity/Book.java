@@ -1,4 +1,4 @@
-package com.chinh;
+package com.chinh.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cache; // Nhớ chọn cho đúng package nhé chính ngu
@@ -6,6 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tbl_book")
@@ -85,5 +86,18 @@ public class Book {
     {
         return String.format("Book{id=%d, title=%s, author=%s, basePrice=%.0f}",
                 id, title, author, basePrice);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id == book.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
