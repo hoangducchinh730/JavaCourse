@@ -1,12 +1,11 @@
 package com.chinh.service;
 
-import com.chinh.Book;
+import com.chinh.entity.Book;
 import com.chinh.repository.BookRepository;
 
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.UUID;
 
 public class BookService {
     private final Scanner scanner;
