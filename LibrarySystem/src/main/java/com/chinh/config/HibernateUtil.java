@@ -1,8 +1,8 @@
 package com.chinh.config;
 
-import com.chinh.Book;
-import com.chinh.LibraryCard;
-import com.chinh.User;
+import com.chinh.entity.Book;
+import com.chinh.entity.LibraryCard;
+import com.chinh.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
