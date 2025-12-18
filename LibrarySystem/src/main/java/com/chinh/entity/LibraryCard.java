@@ -1,14 +1,12 @@
-package com.chinh;
+package com.chinh.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="tbl_library_card")
 public class LibraryCard {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String issuedDate;
     private boolean isActive;

@@ -1,4 +1,4 @@
-package com.chinh;
+package com.chinh.entity;
 
 import jakarta.persistence.Embeddable;
 
